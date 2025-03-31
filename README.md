@@ -3,7 +3,7 @@
 > [!WARNING]
 > Still In Progress
 
-Extensions for [Glance](https://github.com/glanceapp/glance) Dashboard
+Extensions for [Glance](https://github.com/glanceapp/glance) Dashboard <br />
 [Official Doc](https://github.com/glanceapp/glance/blob/main/docs/extensions.md)
 
 ## Credits
