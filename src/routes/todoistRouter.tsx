@@ -11,12 +11,14 @@ export const todoistRouter = new Hono<AppContext>()
     // check property names here: https://developer.todoist.com/rest/v2/?javascript#get-active-tasks
     const sortBy = (c.req.query('sortBy') || 'order').split(',')
     const widgetTitle = c.req.query('title') || 'Todoist'
+    const widgetTitleUrl = c.req.query('titleUrl') || 'https://app.todoist.com/app/today'
 
     // check if it's a name of one of the saved filter,
     // otherwise, use directly as a custom query
     const filterQuery = savedFilters[filter] || filter
 
     c.header('Widget-Title', widgetTitle);
+		c.header('Widget-Title-URL', widgetTitleUrl);
 		c.header('Widget-Content-Type', 'html');
 
     try {
