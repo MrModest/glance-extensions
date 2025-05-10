@@ -18,7 +18,8 @@
     "@types/lodash": "^4.17.16",
     "@types/node": "^20.11.17",
     "dotenv": "^16.4.7",
-    "tsx": "^4.7.1"
+    "tsx": "^4.7.1",
+    "typescript": "^5.7.2"
   },
   "packageManager": "pnpm@8.6.0"
 }
