@@ -44,6 +44,7 @@ const todolist = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 1rem;
 `
 
 const todolist_item = css`
