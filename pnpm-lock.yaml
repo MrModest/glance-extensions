@@ -11,6 +11,9 @@ dependencies:
   '@hono/node-server':
     specifier: ^1.14.0
     version: 1.14.0(hono@4.7.5)
+  dotenv:
+    specifier: ^16.4.7
+    version: 16.4.7
   hono:
     specifier: ^4.7.5
     version: 4.7.5
@@ -28,9 +31,6 @@ devDependencies:
   '@types/node':
     specifier: ^20.11.17
     version: 20.11.17
-  dotenv:
-    specifier: ^16.4.7
-    version: 16.4.7
   tsx:
     specifier: ^4.7.1
     version: 4.7.1
@@ -590,7 +590,7 @@ packages:
   /dotenv@16.4.7:
     resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
     engines: {node: '>=12'}
-    dev: true
+    dev: false
 
   /dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
