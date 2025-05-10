@@ -34,8 +34,6 @@ app.get('/', (c) => {
   return c.text('Hello Hono!')
 })
 
-app.use('*', serveStatic({ root: './public' }))
-
 serve({
   fetch: app.fetch,
   port: process.env.APP__PORT || 3000
