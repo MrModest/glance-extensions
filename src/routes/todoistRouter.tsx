@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import _ from 'lodash'
 import { type AppContext } from "../index.js";
 import { todoistMiddleware } from "../middleware/todoistMiddleware.js";
+import ToDoList from "../components/ToDoList.js";
 
 export const todoistRouter = new Hono<AppContext>()
   .use(todoistMiddleware)
@@ -25,26 +26,26 @@ export const todoistRouter = new Hono<AppContext>()
       const tasks = await client.getTasks( { filter: filterQuery })
       const sortedTasks = _.orderBy(tasks, sortBy)
 
-      return c.json(sortedTasks)
+      const projectIds = _.uniq(sortedTasks.map(t => t.projectId))
+
+      const projects = await Promise.all(
+        projectIds.map(id => client.getProject(id))
+      )
+
+      const projectsMap = _.keyBy(projects, 'id')
+
+      return c.render(
+        <ToDoList
+          items={sortedTasks.map(t => ({
+            id: t.id,
+            name: t.content,
+            url: t.url,
+            labels: t.labels,
+            project: projectsMap[t.projectId]?.name,
+          }))}
+        />
+      )
     } catch (err) {
       return c.text(`Can not fetch tasks by the query '${filterQuery}': ${JSON.stringify(err)}`)
     }
-  })
-  .post('/', async (c) => {
-    const { client } = c.var.todoist
-    const form = await c.req.formData();
-    const taskId = form.get('taskId')?.toString();
-		const returnTo = c.req.header('referer');
-
-		if (!taskId) {
-			return c.text('No Todoist task ID specified', 400);
-		}
-
-		await client.closeTask(taskId);
-
-		if (returnTo) {
-			return c.redirect(returnTo);
-		}
-
-		return c.text(`Task ${taskId} marked as completed!`, 200);
   })
