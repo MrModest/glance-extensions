@@ -10,7 +10,7 @@
   "dependencies": {
     "@doist/todoist-api-typescript": "^3.0.3",
     "@hono/node-server": "^1.14.0",
-    "hono": "^4.7.5",
+    "hono": "^4.11.4",
     "hono-tailwind": "^1.4.0",
     "lodash": "^4.17.21",
     "dotenv": "^16.4.7"
