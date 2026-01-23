@@ -12,7 +12,7 @@
     "@hono/node-server": "^1.14.0",
     "hono": "^4.11.4",
     "hono-tailwind": "^1.4.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "dotenv": "^16.4.7"
   },
   "devDependencies": {
