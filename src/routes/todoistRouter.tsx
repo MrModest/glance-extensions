@@ -23,8 +23,8 @@ export const todoistRouter = new Hono<AppContext>()
 		c.header('Widget-Content-Type', 'html');
 
     try {
-      const tasks = await client.getTasks( { filter: filterQuery })
-      const sortedTasks = _.orderBy(tasks, sortBy)
+      const tasks = await client.getTasksByFilter( { query: filterQuery, limit: 200 })
+      const sortedTasks = _.orderBy(tasks.results, sortBy)
 
       const projectIds = _.uniq(sortedTasks.map(t => t.projectId))
 

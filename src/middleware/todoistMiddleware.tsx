@@ -39,7 +39,7 @@ async function getClient(token?: string): Promise<TodoistApi> {
   const client = new TodoistApi(token)
 
   try {
-    await client.getTasks({ filter: 'today' }) // test token
+    await client.getTasksByFilter({ query: 'today', limit: 200 }) // test token
   } catch(err) {
     throw new Error('Failed to connect to Todoist. Please re-check your token. Error: ' + JSON.stringify(err))
   }

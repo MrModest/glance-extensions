@@ -1,25 +1,25 @@
 {
   "name": "glance-extensions",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "tsx watch src/index.tsx",
     "build": "tsc --project tsconfig.json",
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@doist/todoist-api-typescript": "^3.0.3",
+    "@doist/todoist-api-typescript": "^6.10.0",
     "@hono/node-server": "^1.14.0",
-    "hono": "^4.11.4",
-    "hono-tailwind": "^1.4.0",
+    "hono": "^4.7.5",
+    "hono-tailwind": "^3.0.1",
     "lodash": "^4.17.21",
-    "dotenv": "^16.4.7"
+    "dotenv": "^17.3.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.16",
-    "@types/node": "^20.11.17",
+    "@types/node": "^25.3.3",
     "tsx": "^4.7.1",
     "typescript": "^5.7.2"
   },
-  "packageManager": "pnpm@8.6.0"
+  "packageManager": "pnpm@10.30.3"
 }
