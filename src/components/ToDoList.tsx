@@ -5,45 +5,78 @@ interface ToDoItemProps {
   name: string;
   url: string;
   labels: string[];
-  project?: string;
 }
 
-const ToDoItem = ({id, name, url, labels, project}: ToDoItemProps) => (
+interface ToDoGroupProps {
+  projectName: string;
+  items: ToDoItemProps[];
+}
+
+const ToDoItem = ({id, name, url, labels}: ToDoItemProps) => (
   <li class={todolist_item}>
     <span class={todolist_item_bullet}>⋅</span>
     <div class={todolist_item_container}>
       <a class={todolist_item_title} href={url} target="_blank">{name}</a>
-      <div class={todolist_item_subtitle}>
-        <span>{project}</span>
-      </div>
-      <div class={todolist_item_subtitle}>
-        {labels.map(label => (
-          <span key={label}>
-            {label}
-          </span>
-        ))}
-      </div>
+      {labels.length > 0 && (
+        <div class={todolist_item_subtitle}>
+          {labels.map(label => (
+            <span key={label}>
+              {label}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   </li>
 )
 
-const ToDoList = (props: { items: ToDoItemProps[] }) => (
-  <>
-    <Style />
-    <ul class={todolist}>
-      {props.items.map(i => (
+const ToDoGroup = ({projectName, items}: ToDoGroupProps) => (
+  <div class={todolist_group}>
+    <h4 class={todolist_group_header}>{projectName}</h4>
+    <ul class={todolist_group_items}>
+      {items.map(i => (
         <ToDoItem key={i.id} {...i} />
       ))}
     </ul>
+  </div>
+)
+
+const ToDoList = (props: { groups: ToDoGroupProps[] }) => (
+  <>
+    <Style />
+    <div class={todolist_container}>
+      {props.groups.map(g => (
+        <ToDoGroup key={g.projectName} {...g} />
+      ))}
+    </div>
   </>
 )
 
 export default ToDoList
+export type { ToDoGroupProps, ToDoItemProps }
 
-const todolist = css`
+const todolist_container = css`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 1.5rem;
+`
+
+const todolist_group = css`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`
+
+const todolist_group_header = css`
+  font-size: var(--font-size-h4);
+  color: var(--color-primary);
+  font-weight: bold;
+  margin: 0;
+`
+
+const todolist_group_items = css`
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
 `
 

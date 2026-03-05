@@ -34,16 +34,19 @@ export const todoistRouter = new Hono<AppContext>()
 
       const projectsMap = _.keyBy(projects, 'id')
 
+      const groupedByProject = _.groupBy(sortedTasks, 'projectId')
+      const groups = projectIds.map(projectId => ({
+        projectName: projectsMap[projectId]?.name ?? 'Inbox',
+        items: groupedByProject[projectId].map(t => ({
+          id: t.id,
+          name: t.content,
+          url: t.url,
+          labels: t.labels,
+        })),
+      }))
+
       return c.render(
-        <ToDoList
-          items={sortedTasks.map(t => ({
-            id: t.id,
-            name: t.content,
-            url: t.url,
-            labels: t.labels,
-            project: projectsMap[t.projectId]?.name,
-          }))}
-        />
+        <ToDoList groups={groups} />
       )
     } catch (err) {
       return c.text(`Can not fetch tasks by the query '${filterQuery}': ${JSON.stringify(err)}`)

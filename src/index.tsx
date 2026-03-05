@@ -3,8 +3,8 @@ import { serve, type HttpBindings } from '@hono/node-server'
 import { Hono } from 'hono'
 import { todoistRouter } from './routes/todoistRouter.js';
 import { jsxRenderer } from 'hono/jsx-renderer';
-import { serveStatic } from '@hono/node-server/serve-static'
-import { css, Style } from 'hono/css';
+import { Style } from 'hono/css';
+import PreviewPage from './components/PreviewPage.js';
 
 export type AppContext = {
   Bindings: HttpBindings;
@@ -32,6 +32,14 @@ app.route('/todoist', todoistRouter)
 
 app.get('/', (c) => {
   return c.text('Hello Hono!')
+})
+
+app.get('/preview/todoist', async (c) => {
+  const query = new URL(c.req.url).search
+  const res = await app.request(`/todoist${query}`)
+  const widgetHtml = await res.text()
+
+  return c.render(<PreviewPage title="Todoist" widgetHtml={widgetHtml} />)
 })
 
 serve({
