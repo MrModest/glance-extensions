@@ -24,8 +24,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1(hono@4.12.5)(tailwindcss@4.2.1)
       lodash:
-        specifier: ^4.17.21
-        version: 4.17.23
+        specifier: ^4.18.1
+        version: 4.18.1
     devDependencies:
       '@types/lodash':
         specifier: ^4.17.16
@@ -49,6 +49,7 @@ packages:
   '@doist/todoist-api-typescript@6.10.0':
     resolution: {integrity: sha512-obSwvJLSA4/8Sw6xbse8OL+Oq7l//+JtwtVissTEZ/9NTjRrdS/jqykgaiviW1wHUWZWf1LY7RVDKfRjCzaghA==}
     engines: {node: '>=20.0.0'}
+    deprecated: Package renamed to @doist/todoist-sdk. Please update your dependency.
     peerDependencies:
       type-fest: ^4.12.0
 
@@ -517,8 +518,8 @@ packages:
     resolution: {integrity: sha512-l51N2r93WmGUye3WuFoN5k10zyvrVs0qfKBhyC5ogUQ6Ew6JUSswh78mbSO+IU3nTWsyOArqPCcShdQSadghBQ==}
     engines: {node: '>= 12.0.0'}
 
-  lodash@4.17.23:
-    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
@@ -969,7 +970,7 @@ snapshots:
       lightningcss-win32-arm64-msvc: 1.31.1
       lightningcss-win32-x64-msvc: 1.31.1
 
-  lodash@4.17.23: {}
+  lodash@4.18.1: {}
 
   magic-string@0.30.21:
     dependencies:
