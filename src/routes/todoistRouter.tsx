@@ -9,7 +9,7 @@ export const todoistRouter = new Hono<AppContext>()
   .get('/', async (c) => {
     const { client, savedFilters } = c.var.todoist
     const filter = (c.req.query('filter') || 'today').toLowerCase()
-    // check property names here: https://developer.todoist.com/rest/v2/?javascript#get-active-tasks
+    // check property names here: https://developer.todoist.com/api/v1/#tag/Tasks
     const sortBy = (c.req.query('sortBy') || 'order').split(',')
     const widgetTitle = c.req.query('title') || 'Todoist'
     const widgetTitleUrl = c.req.query('titleUrl') || 'https://app.todoist.com/app/today'

@@ -1,6 +1,6 @@
 import { createMiddleware } from 'hono/factory';
 import { type AppContext } from "../index.js";
-import { TodoistApi } from '@doist/todoist-api-typescript';
+import { TodoistApi } from '@doist/todoist-sdk';
 
 const FILTER_ENV_PREFIX = 'TODOIST__FILTER__'
 
