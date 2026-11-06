@@ -16,6 +16,8 @@ const apps = [
 ]
 process.env.DOCKER_URL = 'http://docker'
 process.env.WUD_URL = 'http://wud'
+process.env.WUD_USER = 'admin'
+process.env.WUD_PASSWORD = 'pw'
 
 const docker = ['healthy', 'running', 'unhealthy', 'starting', 'stopped', 'update', 'digest', 'noresult', 'untagged'].map(name => ({ Names: [`/${name}`], Image: name === 'untagged' ? 'img@sha256:abc' : 'localhost:5000/img:1.2', State: name === 'stopped' ? 'exited' : 'running', Status: name === 'starting' ? 'Up (health: starting)' : name === 'healthy' ? 'Up (healthy)' : name === 'unhealthy' ? 'Up (unhealthy)' : 'Up' }))
 const wud = ['healthy', 'running', 'unhealthy', 'starting', 'stopped', 'update', 'digest', 'untagged'].map(name => ({ name, image: { tag: { value: '1.2' } }, result: { tag: name === 'update' ? '1.3' : '1.2', link: 'https://example.com/releases' }, updateAvailable: ['update', 'digest'].includes(name) }))
@@ -29,6 +31,7 @@ const server = createServer((req, res) => {
     res.end(JSON.stringify(docker)); return
   }
   if (wudDown) { res.writeHead(503).end('secret'); return }
+  if (req.headers.authorization !== `Basic ${Buffer.from('admin:pw').toString('base64')}`) { res.writeHead(401).end(); return }
   res.end(JSON.stringify(wud))
 })
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve))

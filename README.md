@@ -46,8 +46,8 @@ Inspired by [DallasHoff/glance-extensions](https://github.com/DallasHoff/glance-
 ## Apps
 
 `GET /apps` renders the apps passed by each widget, in order. Set `DOCKER_URL`
-to your Docker proxy and `WUD_URL` to WUD. Both must be reachable from the
-extension container. No server-side app config is needed.
+to your Docker proxy and `WUD_URL` to WUD, with `WUD_USER` and `WUD_PASSWORD`
+for a WUD login. Both must be reachable from the extension container. No server-side app config is needed.
 
 See [examples/glance-widget.yml](examples/glance-widget.yml) for a widget you
 can copy. Each `app` parameter is a JSON string with `name`, `icon`, `url`, and
