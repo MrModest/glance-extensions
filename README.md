@@ -58,7 +58,7 @@ HTTP(S). Checks treat any 2xx response as up.
 WUD sometimes picks a newer tag from another channel, such as a dated build.
 By default an update only shows when the new tag has the same shape as the
 installed one (digits may differ, everything else must match); otherwise the
-row says "Check unavailable". Two optional per-app fields adjust this:
+row shows a muted question-mark icon ("Update check unavailable" on hover). Two optional per-app fields adjust this:
 `tagTransform` rewrites WUD's pick first, using WUD's `regex => replacement`
 syntax, and `tagPattern` is a regex the (transformed) tag must match instead
 of the shape check. For example, Jellyfin only cares about major.minor:
@@ -70,4 +70,4 @@ as muted rows. A request without apps returns 400.
 
 Container rows show their installed image tag. WUD updates add a linked version
 badge; `releaseUrl` overrides WUD's release link. Missing WUD results show
-"Check unavailable". Check apps and untagged images have no version line.
+a muted question-mark icon. Check apps and untagged images have no version line.

@@ -73,8 +73,8 @@ test('renders statuses, updates, escaping and headers', async () => {
   assert.match(row(html, 'update'), /→ 1\.3/)
   assert.match(row(html, 'update'), /href="https:\/\/example.com\/releases"/)
   assert.doesNotMatch(row(html, 'digest'), /→/)
-  assert.doesNotMatch(row(html, 'running'), /Check unavailable|→/)
-  assert.match(row(html, 'noresult'), /Check unavailable/)
+  assert.doesNotMatch(row(html, 'running'), /check unavailable|→/)
+  assert.match(row(html, 'noresult'), /aria-label="Update check unavailable"/)
   assert.doesNotMatch(row(html, 'untagged'), /size-h5/)
   assert.match(html, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/)
   assert.doesNotMatch(html, /<script>/)
@@ -90,7 +90,7 @@ test('source failures are isolated', async () => {
   if (process.env.SAMPLE_FRAGMENT) await writeFile(process.env.SAMPLE_FRAGMENT, (await (await import('node:fs/promises')).readFile(process.env.SAMPLE_FRAGMENT, 'utf8')) + '\n' + html)
   dockerDown = false
   const [, html2] = await render()
-  assert.match(row(html2, 'running'), /1\.2 · Check unavailable/)
+  assert.match(row(html2, 'running'), /1\.2<span role="img" aria-label="Update check unavailable"/)
   dockerDown = true; wudDown = false
   const [, html3] = await render()
   assert.match(row(html3, 'update'), /→ 1\.3/)
