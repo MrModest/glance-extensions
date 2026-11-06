@@ -1,0 +1,9 @@
+- type: extension
+  title: Services
+  url: http://glance-ext:9999/apps
+  cache: 1m
+  allow-potentially-dangerous-html: true
+  parameters:
+    app:
+      - '{"name":"Forgejo","icon":"di:forgejo","url":"https://forgejo.modestlab.dev","container":"forgejo"}'
+      - '{"name":"Pi-Hole","icon":"di:pi-hole","url":"https://pihole.modestlab.dev/admin/","check":"http://192.168.178.55/api/info/login"}'

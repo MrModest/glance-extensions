@@ -42,3 +42,23 @@ Add widget into your config like this:
 
 ## Credits
 Inspired by [DallasHoff/glance-extensions](https://github.com/DallasHoff/glance-extensions)
+
+## Apps
+
+`GET /apps` renders the apps passed by each widget, in order. Set `DOCKER_URL`
+to your Docker proxy and `WUD_URL` to WUD. Both must be reachable from the
+extension container. No server-side app config is needed.
+
+See [examples/glance-widget.yml](examples/glance-widget.yml) for a widget you
+can copy. Each `app` parameter is a JSON string with `name`, `icon`, `url`, and
+exactly one of `container` or `check`. Use `di:`, `mdi:`, or an HTTP(S) image
+URL for icons. App URLs, check URLs, and optional `releaseUrl` values must use
+HTTP(S). Checks treat any 2xx response as up.
+
+The widget's `title` names the list. An optional `title` query parameter sets
+`Widget-Title`; otherwise the endpoint omits that header. Invalid entries appear
+as muted rows. A request without apps returns 400.
+
+Container rows show their installed image tag. WUD updates add a linked version
+badge; `releaseUrl` overrides WUD's release link. Missing WUD results show
+"Check unavailable". Check apps and untagged images have no version line.

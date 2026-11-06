@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { serve, type HttpBindings } from '@hono/node-server'
 import { Hono } from 'hono'
+import { appsRouter } from './routes/appsRouter.js';
 import { todoistRouter } from './routes/todoistRouter.js';
 import { jsxRenderer } from 'hono/jsx-renderer';
 import { Style } from 'hono/css';
@@ -29,6 +30,7 @@ app.use(
 )
 
 app.route('/todoist', todoistRouter)
+app.route('/apps', appsRouter)
 
 app.get('/', (c) => {
   return c.text('Hello Hono!')
