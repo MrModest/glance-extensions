@@ -55,6 +55,15 @@ exactly one of `container` or `check`. Use `di:`, `mdi:`, or an HTTP(S) image
 URL for icons. App URLs, check URLs, and optional `releaseUrl` values must use
 HTTP(S). Checks treat any 2xx response as up.
 
+WUD sometimes picks a newer tag from another channel, such as a dated build.
+By default an update only shows when the new tag has the same shape as the
+installed one (digits may differ, everything else must match); otherwise the
+row says "Check unavailable". Two optional per-app fields adjust this:
+`tagTransform` rewrites WUD's pick first, using WUD's `regex => replacement`
+syntax, and `tagPattern` is a regex the (transformed) tag must match instead
+of the shape check. For example, Jellyfin only cares about major.minor:
+`"tagTransform": "^(\\d+\\.\\d+).*$ => $1.0"`.
+
 The widget's `title` names the list. An optional `title` query parameter sets
 `Widget-Title`; otherwise the endpoint omits that header. Invalid entries appear
 as muted rows. A request without apps returns 400.

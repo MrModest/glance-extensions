@@ -7,6 +7,8 @@ register()
 const { appsRouter } = await import('../src/routes/appsRouter.tsx')
 const { imageTag } = await import('../src/apps/docker.ts')
 const { iconUrl } = await import('../src/apps/icons.ts')
+const { versionInfo } = await import('../src/apps/wud.ts')
+const { parseApp } = await import('../src/apps/parseApp.ts')
 
 const apps = [
   ...['healthy', 'running', 'unhealthy', 'starting', 'stopped', 'missing', 'update', 'digest', 'noresult', 'untagged'].map(name => ({ name, icon: 'di:forgejo', url: 'https://example.com', container: name })),
@@ -99,4 +101,21 @@ test('requires apps and accepts optional title', async () => {
   assert.equal((await appsRouter.request('/')).status, 400)
   const query = new URLSearchParams({ app: JSON.stringify(apps[0]), title: 'Services' })
   assert.equal((await appsRouter.request('/?' + query)).headers.get('widget-title'), 'Services')
+})
+
+test('rejects implausible WUD picks', () => {
+  const wud = tag => ({ result: { tag }, updateAvailable: true })
+  assert.deepEqual(versionInfo('10.11.0', wud('10.11.2')), { unavailable: false, update: '10.11.2' })
+  assert.deepEqual(versionInfo('v3.1.0', wud('v3.3.6')), { unavailable: false, update: 'v3.3.6' })
+  assert.deepEqual(versionInfo('17.0.1-rootless', wud('17.0.2-rootless')), { unavailable: false, update: '17.0.2-rootless' })
+  assert.deepEqual(versionInfo('10.11.0', wud('12.4.20261026-211555')), { unavailable: true })
+  assert.deepEqual(versionInfo('10.11.0', wud('12.4.20261026-211555'), { tagPattern: '^\\d+\\.\\d+\\.\\d+-\\d+$' }), { unavailable: false, update: '12.4.20261026-211555' })
+  assert.deepEqual(versionInfo('10.11.0', wud('12.4.20261026-211555'), { tagTransform: '^(\\d+\\.\\d+).*$ => $1.0' }), { unavailable: false, update: '12.4.0' })
+  assert.deepEqual(versionInfo('12.4.0', wud('12.4.20261026-211555'), { tagTransform: '^(\\d+\\.\\d+).*$ => $1.0' }), { unavailable: false })
+  assert.deepEqual(versionInfo('10.11.0', wud('10.11.2'), { tagPattern: '^9\\.' }), { unavailable: true })
+  const app = { name: 'a', icon: 'di:a', url: 'https://a.dev', container: 'a' }
+  assert.equal(parseApp(JSON.stringify({ ...app, tagPattern: '^\\d+$' })).tagPattern, '^\\d+$')
+  assert.equal(parseApp(JSON.stringify({ ...app, tagPattern: '(' })), null)
+  assert.equal(parseApp(JSON.stringify({ ...app, tagTransform: '^(\\d+) => $1' })).tagTransform, '^(\\d+) => $1')
+  assert.equal(parseApp(JSON.stringify({ ...app, tagTransform: 'no arrow' })), null)
 })
